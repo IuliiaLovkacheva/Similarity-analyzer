@@ -1,6 +1,14 @@
 import argparse
 from text_analyzer import TextAnalyzer
 
+
+def print_corpus_text_result(top_chunks):
+    text_results = f"[{text_number}] "
+    text_results += ','.join(
+        map(lambda chunk_data: f"{chunk_data[0]} ({chunk_data[1]} entries)", top_chunks))
+    print(text_results)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input")
@@ -22,19 +30,14 @@ if __name__ == "__main__":
             for line in corpus_file:
                 if line.startswith("-") and line.rstrip() == "-":
                     top_chunks = corpus_text_analyzer.top_chunks
-                    text_results = f"[{text_number}] "
-                    text_results += ','.join(
-                        map(lambda chunk_data: f"{chunk_data[0]} ({chunk_data[1]} entries)", top_chunks))
-                    print(text_results)
+                    print_corpus_text_result(top_chunks)
                     corpus_text_data.append(set(chunk for chunk, frequency in top_chunks))
                     text_number += 1
                     corpus_text_analyzer = TextAnalyzer()
                 else:
                     corpus_text_analyzer.process_line(line)
             top_chunks = corpus_text_analyzer.top_chunks
-            text_results = f"[{text_number}] "
-            text_results += ','.join(map(lambda chunk_data: f"{chunk_data[0]} ({chunk_data[1]} entries)", top_chunks))
-            print(text_results)
+            print_corpus_text_result(top_chunks)
             corpus_text_data.append(set(chunk for chunk, frequency in top_chunks))
 
         most_similar = []
