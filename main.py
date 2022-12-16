@@ -11,8 +11,9 @@ def print_corpus_text_result(top_chunks):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input")
-    parser.add_argument("--corpus")
+    parser.add_argument("input", help="The file containing the input text")
+    parser.add_argument("corpus", help="The file containing the texts from"
+                                       " the corpus separated by a delimiter")
     args = parser.parse_args()
 
     try:
