@@ -36,7 +36,6 @@ if __name__ == "__main__":
 
         most_similar = []
         highest_similarity_level = 1
-        print(input_file_chunk_set)
         for i in range(0, len(corpus_text_chunks)):
             print_corpus_text_result(i + 1, corpus_text_chunks[i])
             corpus_text_chunk_set = set(chunk for chunk, frequency in corpus_text_chunks[i])
