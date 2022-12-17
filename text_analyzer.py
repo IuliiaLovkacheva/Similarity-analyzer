@@ -10,9 +10,9 @@ class TextAnalyzer:
 
     def process_line(self, line):
         for c in line:
-            self.process_character(c)
+            self._process_character(c)
 
-    def process_character(self, c):
+    def _process_character(self, c):
         if c.isspace():
             self._chunk_length = 0
             self._start_index = 0
@@ -22,8 +22,7 @@ class TextAnalyzer:
                 self._start_index = (self._start_index + 1) % self._MAX_CHUNK_LENGTH
                 self._save_chunk()
             else:
-                self._chunk_list[(self._start_index + self._chunk_length)
-                                 % self._MAX_CHUNK_LENGTH] = c
+                self._chunk_list[self._chunk_length] = c
                 self._chunk_length += 1
                 if self._chunk_length == 4:
                     self._save_chunk()
@@ -51,8 +50,3 @@ class TextAnalyzer:
     @property
     def chunk_set(self):
         return set(self._results.keys())
-        # non_unique_set = set()
-        # for key, value in self._results.items():
-        #     if value >= 2:
-        #         non_unique_set.add(key)
-        # return non_unique_set
